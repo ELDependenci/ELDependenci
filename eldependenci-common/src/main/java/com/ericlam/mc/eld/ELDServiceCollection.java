@@ -86,12 +86,7 @@ public abstract class ELDServiceCollection<CommandNode extends CommonCommandNode
 	}
 
 	@Override
-	public ServiceCollection bindFactory(Class<?> factory) {
-		return bindFactory(factory, Map.of());
-	}
-
-	@Override
-	public ServiceCollection bindFactory(Class<?> factory, Map<Class<?>, Class<?>> typeMapping) {
+	public ServiceCollection bindFactory(Class<?> factory, Class<?>... implementations) {
 		if (!factory.isInterface()) throw new IllegalStateException("Factory class must be an interface");
 		for (var method : factory.getMethods()) {
 			if (Void.class.isAssignableFrom(method.getReturnType()) || void.class.isAssignableFrom(method.getReturnType())) {
@@ -99,12 +94,12 @@ public abstract class ELDServiceCollection<CommandNode extends CommonCommandNode
 			}
 
 		}
-		for (var key : typeMapping.keySet()) {
-			if (!key.isInterface()) {
-				throw new IllegalStateException("type mapping key must be an interface: " + key);
+		for (var impl : implementations) {
+			if (impl.isInterface() || Modifier.isAbstract(impl.getModifiers())) {
+				throw new IllegalStateException("Factory implementation must not be an interface or abstract class: " + impl);
 			}
 		}
-		module.bindFactory(factory, typeMapping);
+		module.bindFactory(factory, Set.of(implementations));
 		return this;
 	}
 

@@ -1,7 +1,7 @@
 package com.ericlam.mc.eld.factories;
 
 import java.lang.reflect.Proxy;
-import java.util.Map;
+import java.util.Set;
 
 import javax.inject.Provider;
 
@@ -14,11 +14,11 @@ public final class ELDFactoryProvider<T> implements Provider<T> {
 	private Injector injector;
 
 	private final Class<T> factoryCls;
-	private final Map<Class<?>, Class<?>> typeMapping;
+	private final Set<Class<?>> implementations;
 
-	public ELDFactoryProvider(Class<T> factoryCls, Map<Class<?>, Class<?>> typeMapping) {
+	public ELDFactoryProvider(Class<T> factoryCls, Set<Class<?>> implementations) {
 		this.factoryCls = factoryCls;
-		this.typeMapping = typeMapping;
+		this.implementations = implementations;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -26,8 +26,8 @@ public final class ELDFactoryProvider<T> implements Provider<T> {
 	public T get() {
 		return (T) Proxy.newProxyInstance(
 				this.getClass().getClassLoader(),
-				new Class[]{factoryCls},
-				new FactoryInvocationHandler(typeMapping, injector)
+				new Class[]{ factoryCls },
+				new FactoryInvocationHandler(implementations, injector)
 		);
 	}
 

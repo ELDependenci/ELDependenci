@@ -7,6 +7,7 @@ import com.ericlam.mc.eld.components.Overridable;
 
 import javax.inject.Provider;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * 服務註冊器
@@ -42,21 +43,15 @@ public interface ServiceCollection {
 
 
     /**
-     * 使用工廠註冊服務，外加返回類型映射。
-     * 返回類型映射用於將工廠方法的返回類型 (interface) 映射到實際的實作類型
+     * 使用工廠註冊服務。
+     * 指定實作類為可選，主要用於尋找工廠方法的抽象類返回類型的實作類別。
      *
      * @param factory 工廠類 (interface)
-     * @param typeMapping 返回類型映射
+     * @param implementations 指定實作類 (可多於一個)
      * @return this
      */
-    ServiceCollection bindFactory(Class<?> factory, Map<Class<?>, Class<?>> typeMapping);
+    ServiceCollection bindFactory(Class<?> factory, Class<?>... implementations);
 
-    /**
-     * 使用工廠註冊服務
-     * @param factory 工廠類 (interface)
-     * @return this
-     */
-    ServiceCollection bindFactory(Class<?> factory);
 
     /**
      * 獲取自定義安裝器，沒有時拋出異常
