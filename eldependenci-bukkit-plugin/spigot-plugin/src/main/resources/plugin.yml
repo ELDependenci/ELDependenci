@@ -1,0 +1,5 @@
+name: ELDependenci
+author: "Eric Lam"
+version: ${project.version}
+main: com.ericlam.mc.eld.ELDependenci
+api-version: "1.21.4"

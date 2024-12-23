@@ -43,7 +43,7 @@
     </repositories>
 
     <properties>
-        <jackson.version>2.16.2</jackson.version>
+        <jackson.version>2.18.2</jackson.version>
         <spigot.version>1.21.4-R0.1-SNAPSHOT</spigot.version>
         <bungee.version>1.20-R0.2-SNAPSHOT</bungee.version>
         <eld.plugin.version>2.0.51</eld.plugin.version>
@@ -70,12 +70,6 @@
                 <groupId>net.md-5</groupId>
                 <artifactId>bungeecord-chat</artifactId>
                 <version>1.20-R0.2</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.yaml</groupId>
-                <artifactId>snakeyaml</artifactId>
-                <version>2.2</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
@@ -123,12 +117,6 @@
                 <artifactId>jackson-dataformat-yaml</artifactId>
                 <version>${jackson.version}</version>
                 <scope>compile</scope>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.snakeyaml</groupId>
-                        <artifactId>snakeyaml</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <dependency>
                 <groupId>com.fasterxml.jackson.core</groupId>
@@ -305,7 +293,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-shade-plugin</artifactId>
-                    <version>3.2.4</version>
+                    <version>3.6.0</version>
                     <executions>
                         <execution>
                             <phase>package</phase>
@@ -314,6 +302,19 @@
                             </goals>
                         </execution>
                     </executions>
+                    <configuration>
+                        <shadedArtifactAttached>true</shadedArtifactAttached>
+                        <relocations>
+                            <relocation>
+                                <pattern>org.yaml</pattern>
+                                <shadedPattern>org.eldependenci.yaml</shadedPattern>
+                            </relocation>
+                            <relocation>
+                                <pattern>com.fasterxml.jackson</pattern>
+                                <shadedPattern>org.eldependenci.jackson</shadedPattern>
+                            </relocation>
+                        </relocations>
+                    </configuration>
                 </plugin>
             </plugins>
         </pluginManagement>
