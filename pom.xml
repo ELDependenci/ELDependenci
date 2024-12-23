@@ -44,17 +44,12 @@
 
     <properties>
         <jackson.version>2.16.2</jackson.version>
-        <spigot.version>1.21.1-R0.1-SNAPSHOT</spigot.version>
+        <spigot.version>1.21.4-R0.1-SNAPSHOT</spigot.version>
         <bungee.version>1.20-R0.2-SNAPSHOT</bungee.version>
         <eld.plugin.version>2.0.51</eld.plugin.version>
         <maven.compile.source>21</maven.compile.source>
         <maven.compile.target>21</maven.compile.target>
     </properties>
-
-    <dependencies>
-
-    </dependencies>
-
 
     <dependencyManagement>
         <dependencies>

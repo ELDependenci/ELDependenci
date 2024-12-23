@@ -20,9 +20,6 @@
 
     <artifactId>eldependenci-bukkit-plugin</artifactId>
 
-
-
-
     <dependencies>
         <dependency>
             <groupId>org.eldependenci</groupId>

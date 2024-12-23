@@ -27,8 +27,6 @@
     </dependencies>
 
     <build>
-
-
         <finalName>ELDependenci-paper-${project.version}</finalName>
         <plugins>
             <plugin>

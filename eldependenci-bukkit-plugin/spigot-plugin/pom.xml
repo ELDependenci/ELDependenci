@@ -11,11 +11,6 @@
 
     <artifactId>spigot-plugin</artifactId>
 
-    <properties>
-
-
-    </properties>
-
     <version>${eld.plugin.version}</version>
 
     <dependencies>
