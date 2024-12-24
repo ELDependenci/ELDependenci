@@ -23,14 +23,13 @@ public final class FactoryInvocationHandler implements InvocationHandler {
 	@Override
 	public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 		var implementationCls = findImplementations(method);
-		var constructorArgs = Arrays.stream(args).map(Object::getClass).toArray(Class[]::new);
 		try {
-			var constructor = implementationCls.getConstructor(constructorArgs);
+			var constructor = implementationCls.getConstructor(method.getParameterTypes());
 			var instance = constructor.newInstance(args);
 			injector.injectMembers(instance);
 			return instance;
 		} catch (NoSuchMethodException e) {
-			throw new IllegalArgumentException("No such constructor found for " + implementationCls.getName() + " with args: " + Arrays.toString(constructorArgs), e);
+			throw new IllegalArgumentException("No such constructor found for " + implementationCls.getName() + " with args: " + Arrays.toString(method.getParameterTypes()), e);
 		}
 	}
 
