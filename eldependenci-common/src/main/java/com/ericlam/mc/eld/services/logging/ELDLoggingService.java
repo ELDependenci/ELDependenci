@@ -4,6 +4,7 @@ import com.ericlam.mc.eld.implement.ELDConfig;
 import com.ericlam.mc.eld.misc.DebugLogger;
 import com.ericlam.mc.eld.services.LoggingService;
 
+import java.io.IOException;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
@@ -34,4 +35,11 @@ public final class ELDLoggingService implements LoggingService {
             return logger;
         });
     }
+
+    @Override
+    public void changeDebugMode(boolean debugEnabled) throws IOException {
+        config.debugLogging = debugEnabled;
+        config.getController().save();
+    }
+
 }
